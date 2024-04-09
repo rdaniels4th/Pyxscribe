@@ -88,10 +88,14 @@ def transcribe_audio_chunk(chunk_file: Path) -> str:
             logging.error(f"Could not request results from Google Speech Recognition service; {e}.")
     return ""
 
-def clean_up_chunks(chunk_files):
+def clean_up_chunks(chunk_files, video_file):
     """Remove chunk files after processing."""
     for chunk_file in chunk_files:
         chunk_file.unlink()
+
+    # Remove the audio file
+    audio_file = chunks_dir_path / (video_file.stem + '.wav')
+    audio_file.unlink()
 
 def transcribe_video(video_file: Path, processed_videos):
     """Include a check to skip already processed videos."""
@@ -113,7 +117,7 @@ def transcribe_video(video_file: Path, processed_videos):
             except Exception as exc:
                 logging.error(f"{chunk_file.name} generated an exception: {exc}")
     
-    clean_up_chunks(chunk_files)  # Clean up after transcription
+    clean_up_chunks(chunk_files, video_file)  # Clean up after transcription
     
     if all_text:
         extracted_text = "\n".join(all_text)
