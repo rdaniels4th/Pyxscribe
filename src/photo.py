@@ -6,7 +6,7 @@ from PIL import Image
 import pytesseract
 
 # Configure Tesseract path
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = "C:\\Users\\redan\\AppData\\Local\\ProgramsTesseract-OCR\\tesseract.exe"
 
 # Paths and directory names
 current_directory = Path.cwd()
